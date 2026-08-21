@@ -1,0 +1,79 @@
+name: Incident Log
+description: Report and document a production or system incident.
+title: "[INCIDENT]: "
+labels: ["type: incident", "status: investigating"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out this form as completely as possible to document the incident.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Incident Severity
+      description: Select the impact level of this incident.
+      options:
+        - SEV-1 (Critical - Core service completely down, major data loss/security issue)
+        - SEV-2 (High - Core feature broken, significant impact to users)
+        - SEV-3 (Medium - Non-critical issue, workaround available)
+        - SEV-4 (Low - Minor glitch or internal inconvenience)
+    validations:
+      required: true
+
+  - type: input
+    id: incident-commander
+    attributes:
+      label: Incident Commander / Lead
+      description: Who is leading the resolution of this issue? (Use @github-handle)
+      placeholder: "@username"
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Incident Summary
+      description: Brief overview of what went wrong, who was affected, and current state.
+      placeholder: "At 14:00 UTC, the main database CPU spiked to 100%, causing high latency for login requests..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: User Impact
+      description: Details on impacted services, estimated number of affected users, and region/environment.
+      placeholder: "Approximately 15% of active web traffic experienced HTTP 504 timeouts."
+    validations:
+      required: true
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Initial Timeline (UTC)
+      description: Key events leading up to and during the incident.
+      value: |
+        - **14:00** - Initial alert triggered for high latency.
+        - **14:05** - Incident commander assigned.
+        - **14:15** - Root cause identified as...
+    validations:
+      required: false
+
+  - type: textarea
+    id: remediation
+    attributes:
+      label: Immediate Action Taken / Remediation
+      description: Steps taken to mitigate or resolve the incident.
+      placeholder: "Rolled back deployment #1234 and restarted the API server pool."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: follow-up
+    attributes:
+      label: Post-Incident Actions
+      options:
+        - label: Post-mortem / RCA document required
+        - label: Action items created for long-term fix
+        - label: Customer support / Status page updated
